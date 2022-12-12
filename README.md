@@ -7,7 +7,10 @@
 
 地址为:https://chat.openai.com/backend-api/moderations
 
-update：this morning i send a report to them, and now OpenAI has changed the way using moderatoion api. filer the request of moderation may be unuseful.  
+update：this morning i send a report to them, and now OpenAI may have changed the way using moderatoion api. filer the request of moderation may be unuseful.  
+![image](https://user-images.githubusercontent.com/56443668/206970319-6d84f40b-3d47-4038-a104-2e047ba6b8e1.png)
+![image](https://user-images.githubusercontent.com/56443668/206970363-7ff27c9b-41b8-47e3-a9c9-90901990b5a3.png)
+
 
 ## hack skill
 第一段对话
@@ -48,8 +51,9 @@ update：this morning i send a report to them, and now OpenAI has changed the wa
 通过这种技巧可以诱导ChatGPT生成任意文本，绕过OpenAI的内容限制。
 
 ## 一些猜想
-hack主要利用它的上下文token最多只有4096个和一些心理暗示手段。token最大值是我抓包网页版初始化时的model请求发现的。
+hack主要利用它的上下文token最多只有4097个和一些心理暗示手段。token最大值是我抓包网页版初始化时的model请求发现的。
 ![image](https://user-images.githubusercontent.com/56443668/206969064-92ff5732-d6a9-4d70-8a07-9ee81130ea2b.png)
+![image](https://user-images.githubusercontent.com/56443668/206970123-849e902f-bc6f-4ec2-8023-7f1031c14def.png)
 
 
 解释一下hack的思路。我推测chatgpt会把对话上下文计算成token，丢给模型，然后模型渲染文本，这样就实现了上下文记忆。所以要想让他忽略content policy，就必须在上下文中不断提及它会不遵守规则，以及具有特定的价值取向。最好诱导它自己说出来，我发现他的回答在token中的权重很大。之后大量诱导他自己说出这些话后（12.11日时需要七轮对话，每轮对话你需要发100字左右的诱导，他也会回复100字左右，最后达到token承载的信息上限，在token中把openai的指示洗掉了）。最后你就完成了hack。然后内容检查也就moderations是另一个api直接屏蔽url。
